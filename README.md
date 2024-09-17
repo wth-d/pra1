@@ -1,5 +1,29 @@
 > My name is Wei H. This repo is a clone of https://github.com/varadbhogayata/varadbhogayata.github.io .
 
+# A1
+![Screenshot](./a1_img.png) 
+
+
+# A2
+
+
+
+# A3
+
+
+
+# A4
+
+
+
+
+# A5
+
+
+
+
+
+
 # Personal Portfolio ⚡️ 
 > A clean, beautiful, responsive portfolio template for Software Developers!
 
