@@ -106,6 +106,11 @@
             class="mdi-av-my-library-books small"></i><span>Projects</span></a>
       </li>
 
+      <li class="bold"></li>
+        <a aria-label="Navigate to the Recent projects section" href="#recent" class="waves-effect waves-dark teal-text"><i
+            class="mdi-av-my-library-books small"></i><span>Recent Projects</span></a>
+      </li>
+
       <li class="bold">
         <!--
         ICONS:
@@ -775,6 +780,219 @@ of each drug container to estimate the degradation of the drug.
       </div>
     </section>
 
+    <section id="recent" class="section scrollspy full-height">
+      <h3 class="page-title white-text teal">Recent Projects</h3>
+      <div class="container">
+        <div class="row" id="recentbody">
+          
+        </div>
+      </div>
+
+      <button 
+        style="margin: 100px;"
+        id="loadmore"
+        onclick='
+          () => {} // implemented below
+        '
+      >
+        Load More
+      </button>
+    </section>
+    <script type="text/javascript">
+      // var typed = new Typed('.typing',{
+      //   strings: ["Pythonist", "Developer", "Fast Learner"],
+      //   loop: true,
+      //   typeSpeed: 80,
+      //   backSpeed: 40
+      // });
+
+      const makeDummyProject = (date, titleNum) => {
+        return {
+          date,
+          image: "./assets/img/project-music-player.png",
+          title: "Title" + titleNum,
+          description: "A description of the project",
+          tools: "Technology used (e.g., Python, Django, React, Vue.js, etc.)",
+          listItems: [
+            "Feature 1",
+            "Feature 2",
+            "Feature 3",
+          ],
+          deployUrl: "https://google.com",
+          codeUrl: "https://github.com/wth-d/project",
+        };
+      };
+
+      let projects = [
+        {
+          date: "2000",
+          image: "./assets/img/project-music-player.png",
+          title: "Music Player Web-App",
+          description: "A web app based on Django.",
+          tools: "Django, HTML, CSS, Bootstrap, SQLite, AWS S3, Heroku",
+          listItems: [
+            "point1",
+            "point2",
+            "point3",
+            "point4",
+          ],
+          deployUrl: "https://galvanic-music.herokuapp.com/",
+          codeUrl: "https://github.com/varadbhogayata/music-player",
+        },
+        {
+          date: "2012",
+          image: "./assets/img/project-quizup-logo-1.png",
+          title: "Quiz Web-App",
+          description: "A quiz playing web app based on Django.",
+          tools: "Django, HTML, CSS, Bootstrap, SQLite, Heroku",
+          listItems: [
+            "point1",
+            "point2",
+          ],
+          deployUrl: "https://quiz-up-app.herokuapp.com/",
+          codeUrl: "https://github.com/varadbhogayata/QuizUp",
+        },
+        {
+          date: "2017",
+          image: "./assets/img/project-blog-logo.jpg",
+          title: "Blog Web-App",
+          description: "A simple and extensible blog web-app based on Flask.",
+          tools: "HTML, CSS, Bootstrap, Flask, SQLAlchemy, Postgresql, Python",
+          listItems: [
+            "Users can view posts and contact the admin via Contact Page.",
+            "Admin can Add, Delete, Update posts.",
+          ],
+          deployUrl: "https://flask-heroku-blog.herokuapp.com/",
+          codeUrl: "https://github.com/varadbhogayata/flask-blog",
+        },
+        makeDummyProject("2019", "1"),
+        makeDummyProject("2003", "2"),
+        makeDummyProject("2005", "3"),
+      ];
+      
+      let latestTime = new Date("July 1900");
+      let latestProject = 0;
+      projects.forEach((project, index) => {
+        const pdate = new Date(project.date);
+        if (pdate > latestTime) { // later date
+          latestTime = pdate;
+          latestProject = index;
+        }
+      });
+      console.log(`latestTime is ${latestTime}; latestProject is ${latestProject}`);
+      latestProject = projects[latestProject];
+
+      // let containerDiv = document.createElement("div");
+      let containerDiv = document.querySelector('#recent #recentbody');
+      // // containerDiv.classList.add("row", "center-align");
+
+      containerDiv.innerHTML += `
+        <div class="col s12 m6 l4">
+          <div class="card medium">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img alt="Screenshot of web app" src="${latestProject.image}"
+              style="height: 100%; width: 100%" class="activator" />
+            </div>
+            <div class="card-content">
+              <span class="card-title activator teal-text hoverline">${latestProject.title}<i
+                  class="mdi-navigation-more-vert right"></i></span>
+              <p>
+                ${latestProject.description}
+              </p>
+            </div>
+            <div class="card-reveal">
+              <!-- TODO: change this -- only close button -->
+              <!-- <span class="card-title brown-text">Accomplishments<i class="mdi-navigation-close right"></i></span> -->
+              <span class="card-title teal-text"><small>Accomplishments</small><i
+                  class="mdi-navigation-close right"></i></span>
+              <ul>
+                <li><b>Tools:</b> ${latestProject.tools}</li>
+                ${latestProject.listItems.map((li) => `<li>${li}</li>`).join("")}
+              </ul>
+              <div class="card-action">
+                <a aria-label="Visit Blog website" href="${latestProject.deployUrl}" target="_blank" data-position="top"
+                  data-tooltip="View Online"
+                  class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
+                    class="fa fa-external-link"></i></a>
+                <a aria-label="Visit the GitHub repo for  project" href="${latestProject.codeUrl}"
+                  target="_blank" data-position="top" data-tooltip="View Source"
+                  class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
+                    class="fa fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // document.body.appendChild(containerDiv);
+      const recentBody = document.querySelector('#recent #recentbody');
+      // recentBody.appendChild(containerDiv);
+
+
+      // "Load More" button
+      const button = document.getElementById("loadmore");
+
+      button.addEventListener("click", function() {
+          console.log("Load More clicked");
+
+          containerDiv = document.createElement("div");
+          containerDiv = projects.forEach(
+            (project, index) => {
+              if (project["title"] != latestProject["title"]) {
+                recentBody.innerHTML += `
+                  <div class="col s12 m6 l4">
+                    <div class="card medium">
+                      <div class="card-image waves-effect waves-block waves-light">
+                        <img alt="Screenshot of web app" src="${project.image}"
+                        style="height: 100%; width: 100%" class="activator" />
+                      </div>
+                      <div class="card-content">
+                        <span class="card-title activator teal-text hoverline">${project.title}<i
+                            class="mdi-navigation-more-vert right"></i></span>
+                        <p>
+                          ${project.description}
+                        </p>
+                      </div>
+                      <div class="card-reveal">
+                        <!-- TODO: change this -- only close button -->
+                        <!-- <span class="card-title brown-text">Accomplishments<i class="mdi-navigation-close right"></i></span> -->
+                        <span class="card-title teal-text"><small>Accomplishments</small><i
+                            class="mdi-navigation-close right"></i></span>
+                        <ul>
+                          <li><b>Tools:</b> ${project.tools}</li>
+                          ${project.listItems.map((li) => `<li>${li}</li>`).join("")}
+                        </ul>
+                        <div class="card-action">
+                          <a aria-label="Visit Blog website" href="${project.deployUrl}" target="_blank" data-position="top"
+                            data-tooltip="View Online"
+                            class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
+                              class="fa fa-external-link"></i></a>
+                          <a aria-label="Visit the GitHub repo for  project" href="${project.codeUrl}"
+                            target="_blank" data-position="top" data-tooltip="View Source"
+                            class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
+                              class="fa fa-github"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                // recentBody.appendChild(containerDiv);
+              }
+
+              // Increase margin-top
+              const skills = document.querySelector("#skills");
+              let currentMarginTop = window.getComputedStyle(skills).marginTop;
+              console.log("currentMarginTop is", currentMarginTop);
+              currentMarginTop = parseInt(currentMarginTop, 10); // remove 'px'
+              console.log("currentMarginTop is", currentMarginTop);
+              const newMarginTop = currentMarginTop + 100;
+              skills.style.marginTop = newMarginTop + 'px';
+              button.disabled = true;
+            }
+          )
+      });
+    </script>
+
     <!-- Fifth Section: Skills -->
     <section id="skills" class="section scrollspy">
       <h3 class="page-title white-text teal">Skills</h3>
@@ -1014,16 +1232,17 @@ of each drug container to estimate the degradation of the drug.
         </p>
       </div>
     </section>
+
+    <section id="places" class="section scrollspy full-height">
+      <h3 class="page-title white-text teal">Places travelled</h3>
+      <div class="container">
+        <div class="row">
+          <iframe src="https://www.google.com/maps/d/embed?mid=1DK-Fse4cLjDJ9LzMCTJuCYh9O32Oqcc&ehbc=2E312F" width="640" height="480"></iframe>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <section id="places" class="section scrollspy full-height" style="padding-left: 180px;">
-    <h3 class="page-title white-text teal">Places travelled</h3>
-    <div class="container">
-      <div class="row">
-        <iframe src="https://www.google.com/maps/d/embed?mid=1DK-Fse4cLjDJ9LzMCTJuCYh9O32Oqcc&ehbc=2E312F" width="640" height="480"></iframe>
-      </div>
-    </div>
-  </section>
 
   <!-- typed.js -->
   <script src="assets/vendor/typed.js/typed.min.js"></script>
